@@ -1,4 +1,4 @@
-module log-exploration-api-1
+module log-exploration-api
 
 go 1.16
 

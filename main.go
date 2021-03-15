@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"log-exploration-api-1/pkg/configuration"
-	"log-exploration-api-1/pkg/elastic"
-	"log-exploration-api-1/pkg/logscontroller"
+	"log-exploration-api/pkg/configuration"
+	"log-exploration-api/pkg/elastic"
+	"log-exploration-api/pkg/logscontroller"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package logscontroller
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"log-exploration-api-1/pkg/logs"
+	"log-exploration-api/pkg/logs"
 	"net/http"
 	"time"
 )
