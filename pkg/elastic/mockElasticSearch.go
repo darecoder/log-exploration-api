@@ -22,6 +22,12 @@ func NewMockedElastisearchProvider() *MockedElasticsearchProvider {
 	}
 }
 
+func (m *MockedElasticsearchProvider) Cleanup() {
+	m.App = map[time.Time][]string{}
+	m.Infra = map[time.Time][]string{}
+	m.Audit = map[time.Time][]string{}
+}
+
 func (m *MockedElasticsearchProvider) PutDataAtTime(logTime time.Time, index string, data []string) error {
 	switch strings.ToLower(index) {
 	case "app":
