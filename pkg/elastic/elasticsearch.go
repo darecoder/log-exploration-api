@@ -23,7 +23,7 @@ type ElasticRepository struct {
 	log      *zap.Logger
 }
 
-func NewElasticRepository(log *zap.Logger, config *configuration.ElasticsearchConfig) (logs.LogsProvider, error) {
+func ConnectElasticSearch(log *zap.Logger, config *configuration.ElasticsearchConfig) (*elasticsearch.Client, error) {
 	cfg := elasticsearch.Config{
 		Addresses: []string{
 			config.EsAddress,
@@ -45,6 +45,16 @@ func NewElasticRepository(log *zap.Logger, config *configuration.ElasticsearchCo
 	}
 
 	esClient, err := elasticsearch.NewClient(cfg)
+	if err != nil {
+		log.Error("failed to configure Elasticsearch", zap.Error(err))
+		return nil, err
+	}
+
+	return esClient, nil
+}
+
+func NewElasticRepository(log *zap.Logger, config *configuration.ElasticsearchConfig) (logs.LogsProvider, error) {
+	esClient, err := ConnectElasticSearch(log, config)
 	if err != nil {
 		log.Error("failed to configure Elasticsearch", zap.Error(err))
 		return nil, err

@@ -20,7 +20,15 @@ func NewLogsController(log *zap.Logger, logsProvider logs.LogsProvider, router *
 	}
 
 	r := router.Group("logs")
+	{
 	r.GET("/filter", controller.FilterLogs)
+	//r.GET("/health", controller.CheckHealth)
+	}
+	r1 := router.Group("")
+	{
+	r1.GET("/health", controller.CheckHealth)
+	r1.GET("/ready", controller.CheckReady)
+	}
 	return controller
 }
 
@@ -52,5 +60,21 @@ func (controller *LogsController) FilterLogs(gctx *gin.Context) {
 	}
 
 	gctx.JSON(http.StatusOK, gin.H{"Logs": logsList})
+
+}
+
+func (controller *LogsController) CheckHealth(gctx *gin.Context) {
+	gctx.Header("Access-Control-Allow-Origin", "*")
+	gctx.Header("Access-Control-Allow-Headers", "access-control-allow-origin, access-control-allow-headers")
+	
+	gctx.JSON(http.StatusOK, gin.H{"Message": "Success"})
+
+}
+
+func (controller *LogsController) CheckReady(gctx *gin.Context) {
+	gctx.Header("Access-Control-Allow-Origin", "*")
+	gctx.Header("Access-Control-Allow-Headers", "access-control-allow-origin, access-control-allow-headers")
+	
+	gctx.JSON(http.StatusOK, gin.H{"Message": "Success"})
 
 }
